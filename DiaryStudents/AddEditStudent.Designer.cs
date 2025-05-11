@@ -43,11 +43,14 @@
             this.tbTechnology = new System.Windows.Forms.TextBox();
             this.tbPhysics = new System.Windows.Forms.TextBox();
             this.tbPolishLang = new System.Windows.Forms.TextBox();
-            this.tbForeignLang = new System.Windows.Forms.TextBox();
             this.lbComments = new System.Windows.Forms.Label();
             this.rtbComments = new System.Windows.Forms.RichTextBox();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.cbBonusActivities = new System.Windows.Forms.CheckBox();
+            this.tbForeignLang = new System.Windows.Forms.TextBox();
+            this.lbClass = new System.Windows.Forms.Label();
+            this.cmbSelectClas = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // tbId
@@ -172,17 +175,10 @@
             this.tbPolishLang.Size = new System.Drawing.Size(172, 20);
             this.tbPolishLang.TabIndex = 14;
             // 
-            // tbForeignLang
-            // 
-            this.tbForeignLang.Location = new System.Drawing.Point(99, 236);
-            this.tbForeignLang.Name = "tbForeignLang";
-            this.tbForeignLang.Size = new System.Drawing.Size(172, 20);
-            this.tbForeignLang.TabIndex = 15;
-            // 
             // lbComments
             // 
             this.lbComments.AutoSize = true;
-            this.lbComments.Location = new System.Drawing.Point(26, 271);
+            this.lbComments.Location = new System.Drawing.Point(26, 295);
             this.lbComments.Name = "lbComments";
             this.lbComments.Size = new System.Drawing.Size(37, 13);
             this.lbComments.TabIndex = 16;
@@ -190,15 +186,15 @@
             // 
             // rtbComments
             // 
-            this.rtbComments.Location = new System.Drawing.Point(99, 271);
+            this.rtbComments.Location = new System.Drawing.Point(99, 295);
             this.rtbComments.Name = "rtbComments";
-            this.rtbComments.Size = new System.Drawing.Size(172, 106);
+            this.rtbComments.Size = new System.Drawing.Size(172, 92);
             this.rtbComments.TabIndex = 17;
             this.rtbComments.Text = "";
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(99, 403);
+            this.btnConfirm.Location = new System.Drawing.Point(99, 426);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(75, 23);
             this.btnConfirm.TabIndex = 18;
@@ -208,7 +204,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(196, 403);
+            this.btnCancel.Location = new System.Drawing.Point(196, 426);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 19;
@@ -216,11 +212,48 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // cbBonusActivities
+            // 
+            this.cbBonusActivities.AutoSize = true;
+            this.cbBonusActivities.Location = new System.Drawing.Point(152, 393);
+            this.cbBonusActivities.Name = "cbBonusActivities";
+            this.cbBonusActivities.Size = new System.Drawing.Size(119, 17);
+            this.cbBonusActivities.TabIndex = 21;
+            this.cbBonusActivities.Text = "Zajęcia Dodatkowe";
+            this.cbBonusActivities.UseVisualStyleBackColor = true;
+            // 
+            // tbForeignLang
+            // 
+            this.tbForeignLang.Location = new System.Drawing.Point(99, 236);
+            this.tbForeignLang.Name = "tbForeignLang";
+            this.tbForeignLang.Size = new System.Drawing.Size(172, 20);
+            this.tbForeignLang.TabIndex = 15;
+            // 
+            // lbClass
+            // 
+            this.lbClass.AutoSize = true;
+            this.lbClass.Location = new System.Drawing.Point(26, 269);
+            this.lbClass.Name = "lbClass";
+            this.lbClass.Size = new System.Drawing.Size(32, 13);
+            this.lbClass.TabIndex = 22;
+            this.lbClass.Text = "Klasy";
+            // 
+            // cmbSelectClas
+            // 
+            this.cmbSelectClas.FormattingEnabled = true;
+            this.cmbSelectClas.Location = new System.Drawing.Point(99, 269);
+            this.cmbSelectClas.Name = "cmbSelectClas";
+            this.cmbSelectClas.Size = new System.Drawing.Size(172, 21);
+            this.cmbSelectClas.TabIndex = 23;
+            // 
             // AddEditStudent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 438);
+            this.ClientSize = new System.Drawing.Size(295, 461);
+            this.Controls.Add(this.cmbSelectClas);
+            this.Controls.Add(this.lbClass);
+            this.Controls.Add(this.cbBonusActivities);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.rtbComments);
@@ -241,8 +274,8 @@
             this.Controls.Add(this.lbName);
             this.Controls.Add(this.lb1);
             this.Controls.Add(this.tbId);
-            this.MaximumSize = new System.Drawing.Size(311, 477);
-            this.MinimumSize = new System.Drawing.Size(311, 477);
+            this.MaximumSize = new System.Drawing.Size(311, 500);
+            this.MinimumSize = new System.Drawing.Size(311, 500);
             this.Name = "AddEditStudent";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dodawanie Ucznia";
@@ -268,10 +301,13 @@
         private System.Windows.Forms.TextBox tbTechnology;
         private System.Windows.Forms.TextBox tbPhysics;
         private System.Windows.Forms.TextBox tbPolishLang;
-        private System.Windows.Forms.TextBox tbForeignLang;
         private System.Windows.Forms.Label lbComments;
         private System.Windows.Forms.RichTextBox rtbComments;
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.CheckBox cbBonusActivities;
+        private System.Windows.Forms.TextBox tbForeignLang;
+        private System.Windows.Forms.Label lbClass;
+        private System.Windows.Forms.ComboBox cmbSelectClas;
     }
 }

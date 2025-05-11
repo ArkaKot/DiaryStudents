@@ -15,10 +15,12 @@ namespace DiaryStudents
     public partial class AddEditStudent : Form
     {
 
-
         private int _studentId;
 
         private Student _student;
+
+        private List<Group> _groupList;
+
 
         private FileHelper<List<Student>> _fileHelper =
           new FileHelper<List<Student>>(Program.FilePath);
@@ -29,12 +31,22 @@ namespace DiaryStudents
             InitializeComponent();
 
             _studentId = id;
+            _groupList = GroupList.GetStudentGroupList("Brak Wyboru");
+
+            CmbGroupStatus();
+
             GetStudentData();
 
             tbFirstName.Select();
 
         }
 
+        private void CmbGroupStatus()
+        {
+            cmbSelectClas.DataSource = _groupList;
+            cmbSelectClas.DisplayMember = "Name";
+            cmbSelectClas.ValueMember = "Id";
+        }
 
         private void GetStudentData()
         {
@@ -66,9 +78,9 @@ namespace DiaryStudents
             tbPolishLang.Text = _student.PolishLang.ToString();
             tbForeignLang.Text = _student.ForeignLang.ToString();
             rtbComments.Text = _student.Comments.ToString();
+            cbBonusActivities.Checked = _student.BonusActivities;
+            cmbSelectClas.SelectedItem = _groupList.FirstOrDefault(x => x.Id == _student.GroupId);
         }
-
-
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -79,18 +91,23 @@ namespace DiaryStudents
         {
             var students = _fileHelper.DeserializeFromFile();
 
-            if (_studentId != 0)
-                students.RemoveAll(x => x.Id == _studentId);
+            if (cmbSelectClas.Text == "Brak Wyboru")
+            {
+                MessageBox.Show("Wybierz klasę");
+            }
             else
-                AssignIdToNewStudent(students);
+            {
+                if (_studentId != 0)
+                    students.RemoveAll(x => x.Id == _studentId);
+                else
+                    AssignIdToNewStudent(students);
 
-            AddNewUserToList(students);
+                AddNewUserToList(students);
 
-            _fileHelper.SerializeToFile(students);
+                _fileHelper.SerializeToFile(students);
 
-
-
-            Close();
+                Close();
+            }
         }
 
         private void AddNewUserToList(List<Student> students)
@@ -106,6 +123,10 @@ namespace DiaryStudents
                 Physics = tbPhysics.Text,
                 PolishLang = tbPolishLang.Text,
                 Technology = tbTechnology.Text,
+                BonusActivities = cbBonusActivities.Checked,
+                GroupId = (cmbSelectClas.SelectedItem as Group).Id,
+                GroupName = (cmbSelectClas.SelectedItem as Group).Name
+
             };
 
             students.Add(student);

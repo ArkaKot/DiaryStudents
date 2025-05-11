@@ -25,5 +25,13 @@ namespace DiaryStudents
         public string PolishLang { get; set; }
 
         public string ForeignLang { get; set; }
+
+        public bool BonusActivities { get; set; }
+
+
+       public int GroupId {  get; set; }
+
+       public string GroupName { get; set; }
+
     }
 }

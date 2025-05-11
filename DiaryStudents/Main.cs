@@ -1,6 +1,7 @@
 ﻿using DiaryStudents.Properties;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 
@@ -8,10 +9,10 @@ namespace DiaryStudents
 {
     public partial class Main : Form
     {
-
-
         private FileHelper<List<Student>> _fileHelper =
             new FileHelper<List<Student>>(Program.FilePath);
+
+        private List<Group> _groupList;
 
         public bool IsMaximize
         {
@@ -29,20 +30,42 @@ namespace DiaryStudents
         {
             InitializeComponent();
 
+            _groupList = GroupList.GetStudentGroupList("Brak Wyboru");
+            InitializeStudentClass();
+
             RefreshDiary();
 
             SetColumnHeader();
 
+
+            HiddenColumn();
+
             if (IsMaximize)
                 WindowState = FormWindowState.Maximized;
 
+        }
 
+        private void InitializeStudentClass()
+        {
+
+            cbGroup.DataSource = _groupList;
+            cbGroup.DisplayMember = "Name";
+            cbGroup.ValueMember = "Id";
 
         }
+
 
         private void RefreshDiary()
         {
             var students = _fileHelper.DeserializeFromFile();
+
+            var SelectedGroupId = (cbGroup.SelectedItem as Group).Id;
+
+            if (SelectedGroupId != 0)
+            {
+                students = students.Where(x => x.GroupId == SelectedGroupId).ToList();
+            }
+
             dgvDiary.DataSource = students;
         }
 
@@ -57,16 +80,20 @@ namespace DiaryStudents
             dgvDiary.Columns[6].HeaderText = "Fizyka";
             dgvDiary.Columns[7].HeaderText = "Język Polski";
             dgvDiary.Columns[8].HeaderText = "Język obcy";
+            dgvDiary.Columns[9].HeaderText = "Zajęcia Dodatkowe";
+            dgvDiary.Columns[11].HeaderText = "Klasa";
         }
 
-
+        private void HiddenColumn()
+        {
+            dgvDiary.Columns[10].Visible = false;
+        }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             var addEditStudent = new AddEditStudent();
             addEditStudent.FormClosing += AddEditStudent_FormClosing;
             addEditStudent.ShowDialog();
-
         }
 
         private void AddEditStudent_FormClosing(object sender, FormClosingEventArgs e)

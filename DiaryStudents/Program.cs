@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace DiaryStudents
 {
-     static class Program
+    static class Program
     {
 
         public static string FilePath = Path.Combine(Environment.CurrentDirectory, "students.txt");
